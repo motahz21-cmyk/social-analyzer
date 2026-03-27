@@ -1,28 +1,28 @@
 #!/bin/bash
 echo "Auto pip Package Creator - QeeqBox"
-echo "[x] Deleting pip-social-analyzer"
-[[ -d pip-social-analyzer ]] && rm -r pip-social-analyzer
-echo "[x] Making pip-social-analyzer"
-mkdir -p pip-social-analyzer/social-analyzer
+echo "[x] Deleting social-analyzer"
+[[ -d social-analyzer ]] && rm -r social-analyzer
+echo "[x] Making social-analyzer"
+mkdir -p social-analyzer/social-analyzer
 echo "[x] Copying app.py, setup.py, README.rst & README.rst"
-cp app.py pip-social-analyzer/social-analyzer/__main__.py
-cat >>pip-social-analyzer/social-analyzer/__init__.py <<EOL
+cp app.py social-analyzer/social-analyzer/__main__.py
+cat >>social-analyzer/social-analyzer/__init__.py <<EOL
 #!/usr/bin/env python
 from .__main__ import main_logic
 from .__main__ import SocialAnalyzer
 EOL
-cat >>pip-social-analyzer/social-analyzer/social-analyzer <<EOL
+cat >>social-analyzer/social-analyzer/social-analyzer <<EOL
 #!/usr/bin/env python
 from importlib import import_module
 if __name__ == '__main__':
 	module = import_module("social-analyzer")
 	module.main_logic()
 EOL
-cp setup.py pip-social-analyzer/setup.py
-cp README.rst pip-social-analyzer/README.rst
+cp setup.py social-analyzer/setup.py
+cp README.rst social-analyzer/README.rst
 echo "[x] Copying data folder"
-cp -r data pip-social-analyzer/social-analyzer/
-cd pip-social-analyzer/
+cp -r data social-analyzer/social-analyzer/
+cd social-analyzer/
 echo "[x] Checking setup.py"
 python3 setup.py check -r -s
 echo "[x] Creating pypi Package"
@@ -43,5 +43,6 @@ python3 setup.py sdist bdist_wheel 2>stderr.log 1>stdout.log
  fi
 
 echo "[x] Cleaning.."
-[[ -d pip-social-analyzer ]] && rm -r pip-social-analyzer
+[[ -d social-analyzer ]] && rm -r social-analyzer
 echo "[x] Done"
+
